@@ -21,9 +21,14 @@ public class PostService {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 	}
 
-	// Finding by posts by text
-	public List<Post> findByTitle(String text){
+	// Finding by posts by text by JPA
+	public List<Post> findByTitleByJPA(String text) {
 		return repo.findByTitleContainingIgnoreCase(text);
+	}
+
+	// Finding by posts by text by query
+	public List<Post> findByTitleByQuery(String text) {
+		return repo.searchTitle(text);
 	}
 
 }

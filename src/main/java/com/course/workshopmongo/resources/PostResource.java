@@ -29,11 +29,19 @@ public class PostResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	// find by title
-	@GetMapping(value = "/titlesearch")
+	// find title by JPA
+	@GetMapping(value = "/titlesearchbyjpa")
 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text", defaultValue="") String text) {
 		text = URL.decodeParam(text);
-		List<Post> list = service.findByTitle(text);
+		List<Post> list = service.findByTitleByJPA(text);
+	
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value = "/titlesearch")
+	public ResponseEntity<List<Post>> findTitle(@RequestParam(value="text", defaultValue="") String text) {
+		text = URL.decodeParam(text);
+		List<Post> list = service.findByTitleByQuery(text);
 	
 		return ResponseEntity.ok().body(list);
 	}
